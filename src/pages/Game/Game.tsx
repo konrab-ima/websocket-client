@@ -41,7 +41,6 @@ const Game = () => {
         setShowAnswer(true);
         setAnswer(`${name}: ${guessWord}`);
         setGameRunning(false);
-        });
         */
     }, []);
 
@@ -81,7 +80,7 @@ const Game = () => {
                                            value={guess} className="me-2"
                                            onChange={handleChange} variant="outlined"/>
                                 <Button size="large" variant="contained" endIcon={<SendIcon/>}
-                                        disabled={!guess} type="submit">Senden</Button>
+                                        disabled={!guess || !gameRunning} type="submit">Senden</Button>
                             </form>
                         </CardActions>
                     </CardActions>
