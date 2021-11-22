@@ -1,0 +1,26 @@
+.game-wrapper {
+  max-height: 100%;
+  overflow: visible;
+}
+
+.guess-image {
+  animation: blur 0s ease 0s;
+  -webkit-animation: blur 30s ease 0s;
+  -moz-animation: blur 30s ease 0s;
+}
+
+@keyframes blur {
+  0% {
+    -webkit-filter: blur(50px);
+    -moz-filter: blur(50px);
+    -o-filter: blur(50px);
+    -ms-filter: blur(50px);
+  }
+
+  100% {
+    -webkit-filter: blur(0);
+    -moz-filter: blur(0);
+    -o-filter: blur(0);
+    -ms-filter: blur(0);
+  }
+}
