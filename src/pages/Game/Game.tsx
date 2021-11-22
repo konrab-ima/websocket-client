@@ -19,29 +19,29 @@ const Game = () => {
 
     useEffect(() => {
         const name = localStorage.getItem('name');
-        // TODO: CONNECT
+        socket = io(ENDPOINT, {query: {name}});
 
-        /* TODO: NEW GAME
-        setGameRunning(false);
-        setImageUrl('');
-        setTimeout(() => {
-            setGameRunning(true);
-        }, 100);
-        setTimeout(() => {
-            setImageUrl(imageUrl);
-        }, 1000);
-        */
+        socket.on('newGame', (imageUrl) => {
+            setGameRunning(false);
+            setImageUrl('');
+            setTimeout(() => {
+                setGameRunning(true);
+            }, 100);
+            setTimeout(() => {
+                setImageUrl(imageUrl);
+            }, 1000);
+        });
 
-        /* TODO: GET GUESS
-        setShowGuess(true);
-        setCurrentGuess(guess);
-        */
+        socket.on('guess', guess => {
+            setShowGuess(true);
+            setCurrentGuess(guess);
+        })
 
-        /* TODO: GET WINNER
-        setShowAnswer(true);
-        setAnswer(`${name}: ${guessWord}`);
-        setGameRunning(false);
-        */
+        socket.on('winner', ({name, guessWord}) => {
+            setShowAnswer(true);
+            setAnswer(`${name}: ${guessWord}`);
+            setGameRunning(false);
+        });
     }, []);
 
     const handleChange = (event) => {
@@ -51,7 +51,7 @@ const Game = () => {
 
     const sendGuess = (event) => {
         event.preventDefault();
-        // TODO: SEND GUESS
+        socket.emit('guess', guess);
         setGuess('');
     }
 

@@ -22,19 +22,19 @@ const Chat = () => {
 
     useEffect(() => {
         const name = localStorage.getItem('name');
-        // TODO: CONNECT
+        socket = io(ENDPOINT, {query: {name}});
 
-        /* TODO: GET MESSAGE
-        setMessages(m => [...m, msg]);
-         */
+        socket.on('message', msg => {
+            setMessages(m => [...m, msg]);
+        })
 
-        /* TODO: GET USER LIST
-        setUsers(u);
-        */
+        socket.on('userUpdate', (u) => {
+            setUsers(u);
+        });
 
-        /* TODO: GET INFOS
-        setMessages(m => [...m, msg]);
-        */
+        socket.on('info', (msg) => {
+            setMessages(m => [...m, msg]);
+        });
     }, []);
 
     useEffect(() => {
@@ -50,12 +50,12 @@ const Chat = () => {
 
     const sendMessage = (event) => {
         event.preventDefault();
-        // TODO: SEND MESSAGE
+        socket.send(msg);
         setMsg('');
     }
 
     const leaveChat = () => {
-        // TODO: LEAVE CHAT
+        socket.close();
         localStorage.clear();
         navigate('/');
     }
